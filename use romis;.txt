@@ -1,0 +1,206 @@
+use romis;
+
+create table [dbo].[monie works111csv]
+(
+idex int,
+order_ID varchar,
+Cust_ID varchar
+);
+
+insert into sales.creator (id,full_name,email)
+values ('1','west romio','imisioluwaope@gmail.com');
+
+
+select * from [dbo].[monie works111csv]
+WHERE
+ship_country IS null 
+or
+ship_postal_code IS null 
+or
+size IS null 
+or
+sku IS null
+or
+channel IS null
+or
+DATE IS null
+or
+Order_ID IS null
+OR
+b2b IS null
+or
+age IS null
+or
+gender IS null
+or
+status IS null
+or
+qty IS null
+
+--Data Exploration
+1. How many sales we have ?
+
+select  count (*) as total_sales from [dbo].[monie works111csv]
+
+2. How many customers we have ?
+
+select  count (Cust_ID) as total_sales from [dbo].[monie works111csv]
+
+3. How many unique customers we have?
+
+select  count (DISTINCT Cust_ID) as unique_customers from [dbo].[monie works111csv]
+
+4. How many categories?
+
+select DISTINCT category from [dbo].[monie works111csv]
+
+5. Different types of channels used
+
+select DISTINCT category from [dbo].[monie works111csv
+
+-- Data Analysis & Business Key Problems & Answers
+Q1. Write a SQL query to retrieve all columns for sales made on '2022-12-04'
+
+select *
+from [dbo].[monie works111csv]
+where date = '2022-12-04';
+
+Q2. Write a SQL query to retrieve all columns for sales made BETWEEN '2022-12-04' AND '2022-12-07'
+
+SELECT TOP 1000 * FROM [dbo].[monie works111csv]
+WHERE DATE BETWEEN '2022-12-04' AND '2022-12-07';
+
+Q3. Write a SQL query to retrieve all transactions where category is 'Set' and the amount is more than 500 the month of Dec 5-6?
+
+ SELECT *
+FROM [dbo].[monie works111csv]
+WHERE CATEGORY = 'Set' AND AMOUNT > 500 
+AND DATE BETWEEN '2022-12-05' AND '2022-12-07';
+
+Q4. Write a SQL query to retrieve all transactions where category is 'Kurta' and the amount is more than 500 the month of Dec 5-6?
+
+FROM [dbo].[monie works111csv]
+WHERE CATEGORY = 'Kurta' AND AMOUNT > 500 
+AND DATE BETWEEN '2022-12-05' AND '2022-12-07';
+
+Q5. Write a SQL query to retrieve all transactions where category is 'Top' and the amount is more than 300 the month of Dec 6?
+
+SELECT *
+FROM [dbo].[monie works111csv]
+WHERE CATEGORY = 'Top' AND AMOUNT > 300 
+AND DATE = '2022-12-06';
+
+Q6. Write a SQL query to calculate the total sales as (net_sale) for each category
+
+select 
+CATEGORY, SUM (Amount) as net_sale 
+from [dbo].[monie works111csv]
+GROUP BY CATEGORY;
+
+Q7. Write a SQL query to calculate the total sales as (Channel_net_sale) for each CHANNEL
+
+select 
+CHANNEL, SUM (Amount) as Channel_net_sale 
+from [dbo].[monie works111csv]
+GROUP BY CHANNEL;
+
+Q8. Write a SQL query to calculate the total sales as (SHIPCITY_net_sale) for each SHIP_CITY
+
+select 
+SHIP_CITY, SUM (Amount) as SHIPCITY_net_sale 
+from [dbo].[monie works111csv]
+GROUP BY SHIP_CITY;
+
+Q9. Write a SQL query to calculate the total sales as (SHIPSTATE_sale) for each SHIP_STATE
+
+select 
+SHIP_STATE, SUM (Amount) as SHIPSTATE_net_sale 
+from [dbo].[monie works111csv]
+GROUP BY SHIP_STATE;
+
+Q10. Write a SQL query to calculate the total sales as (SHIPSTATE_sale) for each SHIP_STATE with their number of orders
+
+select 
+SHIP_STATE, SUM (Amount) as SHIPSTATE_net_sale,
+COUNT (*) as total_state_orders
+from [dbo].[monie works111csv]
+GROUP BY SHIP_STATE;
+
+Q11. Write a SQL query to calculate the total sales as (SHIPCITY_sale) for each SHIP_CITY with their number of orders
+
+select 
+SHIP_CITY, SUM (Amount) as SHIPCITY_net_sale,
+COUNT (*) as total_city_orders
+from [dbo].[monie works111csv]
+GROUP BY SHIP_CITY;
+
+Q12. Write a SQL query to find the age of customers who purchased items from the western dress category
+
+SELECT 
+AVG(AGE) AS AVG_AGE
+FROM [dbo].[monie works111csv]
+WHERE CATEGORY = 'Western Dress'
+
+Q13. Write a SQL query to find all transactions where the amount is greater than 1600
+
+select * from [dbo].[monie works111csv]
+where amount > 1600
+
+Q14. Write a SQL query to find the total number of transactions (Order_ID) made by each gender in each category
+
+select 
+category, gender, count (*) as total_gendersales
+from [dbo].[monie works111csv]
+group by category,gender
+order by 1
+
+Q15. Write a SQL query to find the average amount of sales per month,to determine best selling and low sales month, extracting year from date column
+ 
+SELECT
+Year (date) as year,
+month,
+AVG(amount) as avg_sales 
+from [dbo].[monie works111csv]
+GROUP BY Year (date), month
+ORDER BY year, month;
+
+Q16. Write a SQL query to find the average amount of sales per Category,to determine best selling and low sales categories
+
+SELECT
+category,
+AVG(amount) as avg_sales 
+from [dbo].[monie works111csv]
+GROUP BY category
+ORDER BY 1
+ 
+Q17. Write a SQL query to find the average amount of sales per Age group
+
+SELECT
+Age_group, AVG(Amount)
+from [dbo].[monie works111csv]
+GROUP BY Age_group
+ORDER BY 1
+ 
+Q18. Write a SQL query to find the total numbers of orders per Age group
+
+SELECT
+Age_group, count(order_id) as order_numbers
+from [dbo].[monie works111csv]
+GROUP BY Age_group
+ORDER BY 1
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
